@@ -34,7 +34,7 @@ public class AccountController {
   }
 
 
-  @PutMapping("/login")
+  @PutMapping("/record")
   public String login(@Validated @RequestBody LoginCmd cmd){
     return accountService.login(cmd);
   }
