@@ -2,6 +2,7 @@ package xyz.sanjiaomao.application.account;
 
 import cn.hutool.core.lang.Assert;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.sanjiaomao.domain.account.AccountBO;
 import xyz.sanjiaomao.domain.account.cmd.CreateAccountCmd;
 import xyz.sanjiaomao.domain.account.cmd.LoginCmd;
@@ -28,6 +29,7 @@ public class AccountService {
    * @param cmd {@link CreateAccountCmd}
    * @return info
    */
+  @Transactional(rollbackFor = Exception.class)
   public String create(CreateAccountCmd cmd) {
     //加载account
     AccountBO accountBO = accountRepository.findByAccount(cmd.getAccount());
@@ -42,11 +44,12 @@ public class AccountService {
    * @param cmd {@link LoginCmd}
    * @return info
    */
+  @Transactional(rollbackFor = Exception.class)
   public String login(LoginCmd cmd) {
     AccountBO accountBO = accountRepository.findByAccount(cmd.getAccount());
     Assert.isFalse(accountBO.exist(), "账号不存在");
     Assert.isTrue(accountBO.checkPassword(cmd), "密码错误");
-    accountBO.addLoginRecord();
+    accountBO.addRecord();
     return "登录成功";
   }
 

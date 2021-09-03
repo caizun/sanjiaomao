@@ -10,7 +10,7 @@ import xyz.sanjiaomao.domain.account.AccountBO;
  * @author 李宇飞
  * create by 2021-09-02 22:00
  */
-public interface MyLoginRecord {
+public interface MyRecord {
 
 
 

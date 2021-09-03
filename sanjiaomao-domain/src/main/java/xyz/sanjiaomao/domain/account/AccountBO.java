@@ -3,7 +3,7 @@ package xyz.sanjiaomao.domain.account;
 import lombok.Data;
 import xyz.sanjiaomao.domain.account.cmd.CreateAccountCmd;
 import xyz.sanjiaomao.domain.account.cmd.LoginCmd;
-import xyz.sanjiaomao.domain.account.entity.MyLoginRecord;
+import xyz.sanjiaomao.domain.account.entity.MyRecord;
 import xyz.sanjiaomao.domain.account.entity.OwnerSysUser;
 import xyz.sanjiaomao.domain.account.val.AccountDO;
 
@@ -23,7 +23,7 @@ public class AccountBO {
   /**
    * 聚合根主键
    */
-  private final Long id;
+  private Long id;
   /**
    * 账号值对象
    */
@@ -35,7 +35,7 @@ public class AccountBO {
   /**
    * 登录记录
    */
-  private MyLoginRecord myLoginRecord;
+  private MyRecord myRecord;
 
   public AccountBO(Long id, AccountDO accountDO) {
     this.id = id;
@@ -54,7 +54,7 @@ public class AccountBO {
     return Objects.equals(cmd.getPassword(), accountDO.getPassword());
   }
 
-  public void addLoginRecord() {
-    myLoginRecord.add(this);
+  public void addRecord() {
+    myRecord.add(this);
   }
 }

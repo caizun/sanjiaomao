@@ -6,7 +6,7 @@ import xyz.sanjiaomao.domain.account.AccountBO;
 import xyz.sanjiaomao.domain.account.repository.AccountRepository;
 import xyz.sanjiaomao.domain.account.val.AccountDO;
 import xyz.sanjiaomao.infrastructure.account.dao.AccountDAO;
-import xyz.sanjiaomao.infrastructure.account.entity.MyLoginRecordImpl;
+import xyz.sanjiaomao.infrastructure.account.entity.MyRecordImpl;
 import xyz.sanjiaomao.infrastructure.account.entity.OwnerSysUserImpl;
 import xyz.sanjiaomao.infrastructure.mapper.AccountDAOMapper;
 import xyz.sanjiaomao.infrastructure.mapper.SysUserDAOMapper;
@@ -50,7 +50,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     AccountBO accountBO = new AccountBO(accountDAO.getId(),
         new AccountDO(accountDAO.getAccount(), accountDAO.getPassword(), accountDAO.getNickname()));
     accountBO.setOwnerSysUser(new OwnerSysUserImpl(sysUserDAOMapper));
-    accountBO.setMyLoginRecord(new MyLoginRecordImpl(httpServletResponse));
+    accountBO.setMyRecord(new MyRecordImpl(httpServletResponse));
     return accountBO;
   }
 
@@ -63,5 +63,6 @@ public class AccountRepositoryImpl implements AccountRepository {
     accountDAO.setPassword(accountDO.getPassword());
     accountDAO.setNickname(accountDO.getNickname());
     accountDAOMapper.insert(accountDAO);
+    accountBO.setId(accountDAO.getId());
   }
 }

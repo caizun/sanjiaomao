@@ -1,7 +1,7 @@
 package xyz.sanjiaomao.infrastructure.account.entity;
 
 import xyz.sanjiaomao.domain.account.AccountBO;
-import xyz.sanjiaomao.domain.account.entity.MyLoginRecord;
+import xyz.sanjiaomao.domain.account.entity.MyRecord;
 import xyz.sanjiaomao.infrastructure.cache.MapCache;
 
 import javax.servlet.http.Cookie;
@@ -16,12 +16,12 @@ import java.util.UUID;
  * @author 李宇飞
  * create by 2021-09-02 22:02
  */
-public class MyLoginRecordImpl implements MyLoginRecord {
+public class MyRecordImpl implements MyRecord {
 
 
   private final HttpServletResponse response;
 
-  public MyLoginRecordImpl(HttpServletResponse response){
+  public MyRecordImpl(HttpServletResponse response){
     this.response = response;
   }
 

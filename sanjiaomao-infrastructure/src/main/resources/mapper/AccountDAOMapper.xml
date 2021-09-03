@@ -11,7 +11,7 @@
     delete from account
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.account.dao.AccountDAO" >
+  <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.account.dao.AccountDAO" useGeneratedKeys="true" keyProperty="id">
     insert into account (id, account, password, 
       nickname)
     values (#{id,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
