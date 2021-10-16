@@ -1,68 +1,73 @@
 package xyz.sanjiaomao.infrastructure.account.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import xyz.sanjiaomao.domain.account.AccountBO;
+import xyz.sanjiaomao.domain.account.AccountAggregate;
+import xyz.sanjiaomao.domain.account.cmd.CreateAccountCmd;
 import xyz.sanjiaomao.domain.account.repository.AccountRepository;
-import xyz.sanjiaomao.domain.account.val.AccountDO;
-import xyz.sanjiaomao.infrastructure.account.dao.AccountDAO;
-import xyz.sanjiaomao.infrastructure.account.entity.MyRecordImpl;
-import xyz.sanjiaomao.infrastructure.account.entity.OwnerSysUserImpl;
-import xyz.sanjiaomao.infrastructure.mapper.AccountDAOMapper;
-import xyz.sanjiaomao.infrastructure.mapper.SysUserDAOMapper;
+import xyz.sanjiaomao.domain.account.valueobject.Account;
+import xyz.sanjiaomao.infrastructure.account.dataobject.AccountDO;
+import xyz.sanjiaomao.infrastructure.account.entity.AccountOwnerEntityImpl;
+import xyz.sanjiaomao.infrastructure.account.entity.MyRoleEntityImpl;
+import xyz.sanjiaomao.infrastructure.mapper.AccountMapper;
+import xyz.sanjiaomao.infrastructure.mapper.AccountRoleRelMapper;
+import xyz.sanjiaomao.infrastructure.mapper.RoleMapper;
+import xyz.sanjiaomao.infrastructure.mapper.UserMapper;
+import xyz.sanjiaomao.infrastructure.utils.IdUtils;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
 
 /**
  * <pre>
- *  仓储
+ *
  * </pre>
  *
  * @author 李宇飞
- * create by 2021-09-02 20:52
+ * create by 2021-10-16 17:15
  */
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
 
   @Resource
-  private AccountDAOMapper accountDAOMapper;
+  private AccountMapper accountMapper;
 
   @Resource
-  private SysUserDAOMapper sysUserDAOMapper;
+  private AccountRoleRelMapper accountRoleRelMapper;
 
-  private final HttpServletResponse httpServletResponse;
+  @Resource
+  private RoleMapper roleMapper;
 
-  @Autowired(required = false)
-  public AccountRepositoryImpl( HttpServletResponse httpServletResponse){
-    this.httpServletResponse = httpServletResponse;
-  }
-
+  @Resource
+  private UserMapper userMapper;
 
   @Override
-  public AccountBO findByAccount(String account) {
-
-    AccountDAO accountDAO = accountDAOMapper.findByAccount(account);
-    if (Objects.isNull(accountDAO)) {
-      return new AccountBO(null, null);
-    }
-    AccountBO accountBO = new AccountBO(accountDAO.getId(),
-        new AccountDO(accountDAO.getAccount(), accountDAO.getPassword(), accountDAO.getNickname()));
-    accountBO.setOwnerSysUser(new OwnerSysUserImpl(sysUserDAOMapper));
-    accountBO.setMyRecord(new MyRecordImpl(httpServletResponse));
-    return accountBO;
+  public AccountAggregate create(CreateAccountCmd cmd) {
+    AccountAggregate aggregate = new AccountAggregate(IdUtils.AccountId.nextId());
+    Account account = new Account(cmd.getAccount(), cmd.getPassword(), cmd.getNickname());
+    aggregate.setAccount(account);
+    aggregate.setAccountOwnerEntity(new AccountOwnerEntityImpl(userMapper));
+    aggregate.setMyRoleEntity(new MyRoleEntityImpl(roleMapper, accountRoleRelMapper));
+    return aggregate;
   }
 
   @Override
-  public void create(AccountBO accountBO) {
-    AccountDAO accountDAO = new AccountDAO();
-    accountDAO.setId(accountBO.getId());
-    AccountDO accountDO = accountBO.getAccountDO();
-    accountDAO.setAccount(accountDO.getAccount());
-    accountDAO.setPassword(accountDO.getPassword());
-    accountDAO.setNickname(accountDO.getNickname());
-    accountDAOMapper.insert(accountDAO);
-    accountBO.setId(accountDAO.getId());
+  public void save(AccountAggregate aggregate) {
+    Account account = aggregate.getAccount();
+    AccountDO accountDO = new AccountDO();
+    accountDO.setId(aggregate.getId());
+    accountDO.setAccount(account.getAccount());
+    accountDO.setPassword(account.getPassword());
+    accountDO.setNickname(account.getNickname());
+    accountMapper.insert(accountDO);
+  }
+
+  @Override
+  public AccountAggregate findById(Long id) {
+    AccountDO accountDO = accountMapper.selectByPrimaryKey(id);
+    AccountAggregate aggregate = new AccountAggregate(accountDO.getId());
+    Account account = new Account(accountDO.getAccount(), accountDO.getPassword(), accountDO.getNickname());
+    aggregate.setAccount(account);
+    aggregate.setAccountOwnerEntity(new AccountOwnerEntityImpl(userMapper));
+    aggregate.setMyRoleEntity(new MyRoleEntityImpl(roleMapper, accountRoleRelMapper));
+    return aggregate;
   }
 }
