@@ -5,14 +5,13 @@ import cn.hutool.core.util.IdUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.sanjiaomao.domain.account.AccountAggregate;
-import xyz.sanjiaomao.domain.account.cmd.AddLoginRecordCmd;
+import xyz.sanjiaomao.domain.account.cmd.AddRecordCmd;
 import xyz.sanjiaomao.domain.account.cmd.CreateAccountCmd;
 import xyz.sanjiaomao.domain.account.repository.AccountRepository;
 import xyz.sanjiaomao.infrastructure.account.dataobject.AccountDO;
 import xyz.sanjiaomao.infrastructure.account.dataobject.RoleDO;
 import xyz.sanjiaomao.infrastructure.constants.AccountConstant;
 import xyz.sanjiaomao.infrastructure.message.Message;
-import xyz.sanjiaomao.infrastructure.utils.CacheLoginUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -59,17 +58,19 @@ public class AccountOptService {
   }
 
 
-  public void login(AddLoginRecordCmd cmd){
+  public void login(AddRecordCmd cmd){
     AccountDO accountDO = accountQryService.selectByAccount(cmd.getAccount());
     //断言
     Assert.notNull(accountDO.getId(), Message.NOT_EXIST_ACCOUNT);
     Assert.isTrue(Objects.equals(accountDO.getPassword(), cmd.getPassword()),Message.ERROR_PASSWORD);
 
-    String cookie = IdUtil.simpleUUID();
+    AccountAggregate aggregate = accountRepository.findById(accountDO.getId());
 
-    CacheLoginUtils.put(cookie, accountDO);
+    String id = IdUtil.simpleUUID();
 
-    Cookie account = new Cookie(AccountConstant.COOKIE_ACCOUNT, cookie);
+    aggregate.addRecord(id);
+
+    Cookie account = new Cookie(AccountConstant.COOKIE_ACCOUNT, id);
     account.setMaxAge(Integer.MAX_VALUE);
 
     httpServletResponse.addCookie(account);

@@ -19,7 +19,9 @@ public interface AccountRepository {
    */
   AccountAggregate create(CreateAccountCmd cmd);
 
+  AccountAggregate findById(Long id);
+
   void save(AccountAggregate aggregate);
 
-  AccountAggregate findById(Long id);
+
 }

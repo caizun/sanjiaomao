@@ -2,12 +2,13 @@ package xyz.sanjiaomao.domain.account;
 
 import lombok.Data;
 import xyz.sanjiaomao.domain.account.entity.AccountOwnerEntity;
+import xyz.sanjiaomao.domain.account.entity.MyRecordEntity;
 import xyz.sanjiaomao.domain.account.entity.MyRoleEntity;
 import xyz.sanjiaomao.domain.account.valueobject.Account;
 
 /**
  * <pre>
- *
+ *  账号
  * </pre>
  *
  * @author 李宇飞
@@ -31,6 +32,10 @@ public class AccountAggregate {
    * 账号的角色
    */
   private MyRoleEntity myRoleEntity;
+  /**
+   *
+   */
+  private MyRecordEntity myRecordEntity;
 
 
   public AccountAggregate(Long id){
@@ -43,5 +48,14 @@ public class AccountAggregate {
    */
   public void addRole(Long roleId) {
     myRoleEntity.addRole(this.id, roleId);
+  }
+
+
+  public void addRecord(String recordId) {
+    myRecordEntity.addRecord(recordId, this);
+  }
+
+  public void delRecord(String recordId) {
+    myRecordEntity.delRecord(recordId);
   }
 }

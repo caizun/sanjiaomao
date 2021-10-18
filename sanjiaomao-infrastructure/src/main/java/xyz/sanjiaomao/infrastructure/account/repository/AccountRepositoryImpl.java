@@ -7,6 +7,7 @@ import xyz.sanjiaomao.domain.account.repository.AccountRepository;
 import xyz.sanjiaomao.domain.account.valueobject.Account;
 import xyz.sanjiaomao.infrastructure.account.dataobject.AccountDO;
 import xyz.sanjiaomao.infrastructure.account.entity.AccountOwnerEntityImpl;
+import xyz.sanjiaomao.infrastructure.account.entity.MyRecordEntityImpl;
 import xyz.sanjiaomao.infrastructure.account.entity.MyRoleEntityImpl;
 import xyz.sanjiaomao.infrastructure.mapper.AccountMapper;
 import xyz.sanjiaomao.infrastructure.mapper.AccountRoleRelMapper;
@@ -41,12 +42,13 @@ public class AccountRepositoryImpl implements AccountRepository {
 
   @Override
   public AccountAggregate create(CreateAccountCmd cmd) {
-    AccountAggregate aggregate = new AccountAggregate(IdUtils.AccountId.nextId());
-    Account account = new Account(cmd.getAccount(), cmd.getPassword(), cmd.getNickname());
-    aggregate.setAccount(account);
-    aggregate.setAccountOwnerEntity(new AccountOwnerEntityImpl(userMapper));
-    aggregate.setMyRoleEntity(new MyRoleEntityImpl(roleMapper, accountRoleRelMapper));
-    return aggregate;
+    return build(IdUtils.AccountId.nextId(), cmd.getAccount(), cmd.getPassword(), cmd.getNickname());
+  }
+
+  @Override
+  public AccountAggregate findById(Long id) {
+    AccountDO accountDO = accountMapper.selectByPrimaryKey(id);
+    return build(accountDO.getId(), accountDO.getAccount(), accountDO.getPassword(), accountDO.getNickname());
   }
 
   @Override
@@ -60,14 +62,16 @@ public class AccountRepositoryImpl implements AccountRepository {
     accountMapper.insert(accountDO);
   }
 
-  @Override
-  public AccountAggregate findById(Long id) {
-    AccountDO accountDO = accountMapper.selectByPrimaryKey(id);
-    AccountAggregate aggregate = new AccountAggregate(accountDO.getId());
-    Account account = new Account(accountDO.getAccount(), accountDO.getPassword(), accountDO.getNickname());
-    aggregate.setAccount(account);
+
+
+
+  private AccountAggregate build(Long id, String account, String password, String nickname){
+    AccountAggregate aggregate = new AccountAggregate(id);
+    aggregate.setAccount(new Account(account, password, nickname));
     aggregate.setAccountOwnerEntity(new AccountOwnerEntityImpl(userMapper));
     aggregate.setMyRoleEntity(new MyRoleEntityImpl(roleMapper, accountRoleRelMapper));
+    aggregate.setMyRecordEntity(new MyRecordEntityImpl());
     return aggregate;
   }
+
 }

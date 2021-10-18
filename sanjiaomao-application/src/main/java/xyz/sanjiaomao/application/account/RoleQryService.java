@@ -1,5 +1,6 @@
 package xyz.sanjiaomao.application.account;
 
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import xyz.sanjiaomao.infrastructure.account.dataobject.RoleDO;
 import xyz.sanjiaomao.infrastructure.account.qry.RoleQry;
@@ -16,6 +17,7 @@ import java.util.List;
  * @author 李宇飞
  * create by 2021-10-16 16:15
  */
+@Service
 public class RoleQryService {
 
   @Resource

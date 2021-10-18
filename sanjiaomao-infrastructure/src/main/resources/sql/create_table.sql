@@ -33,6 +33,11 @@ create table role
     is_deleted integer unsigned default 0 comment '0未删除'
 ) COMMENT '角色';
 
+insert into role(id,role_code,role_name)
+values (1,'ADMIN','管理员');
+
+insert into role(id,role_code,role_name)
+values (2,'NORMAL','一般用户');
 
 drop table if exists account_role_rel;
 create table account_role_rel
