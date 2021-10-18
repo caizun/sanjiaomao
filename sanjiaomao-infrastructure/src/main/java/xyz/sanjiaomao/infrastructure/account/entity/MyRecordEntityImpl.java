@@ -18,6 +18,9 @@ public class MyRecordEntityImpl implements MyRecordEntity {
   @Override
   public void addRecord(String recordId, AccountAggregate aggregate) {
     CacheAccountRecordUtils.put(recordId, aggregate);
+
+    CacheAccountRecordUtils.putRefresh(recordId, aggregate);
+
   }
 
   @Override
