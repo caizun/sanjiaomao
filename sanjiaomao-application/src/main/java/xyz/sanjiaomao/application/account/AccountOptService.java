@@ -15,6 +15,7 @@ import xyz.sanjiaomao.infrastructure.message.Message;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
@@ -39,7 +40,12 @@ public class AccountOptService {
   private RoleQryService roleQryService;
 
   @Resource
+  private HttpServletRequest httpServletRequest;
+
+  @Resource
   private HttpServletResponse httpServletResponse;
+
+
 
   @Transactional(rollbackFor = Exception.class)
   public void registry(CreateAccountCmd cmd){

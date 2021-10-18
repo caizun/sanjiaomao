@@ -16,7 +16,7 @@ import java.util.Optional;
  */
 public class CacheAccountRecordUtils {
 
-  private static final TimedCache<String, AccountAggregate> CACHE_LOGIN = CacheUtil.newTimedCache(1800000);
+  private static final TimedCache<String, AccountAggregate> CACHE_LOGIN = CacheUtil.newTimedCache(300000);
 
 
   public static AccountAggregate get(String key){

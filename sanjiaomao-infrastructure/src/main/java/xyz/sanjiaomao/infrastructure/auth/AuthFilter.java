@@ -57,13 +57,13 @@ public class AuthFilter implements Filter {
       return;
     }
 
-    chain.doFilter(request, response);
-
     String id = IdUtil.simpleUUID();
     aggregate.addRecord(id);
     Cookie cookie = new Cookie(AccountConstant.COOKIE_ACCOUNT, id);
     cookie.setMaxAge(Integer.MAX_VALUE);
     httpServletResponse.addCookie(cookie);
+
+    chain.doFilter(request, response);
 
   }
 
