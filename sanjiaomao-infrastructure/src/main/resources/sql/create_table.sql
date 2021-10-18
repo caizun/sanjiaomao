@@ -6,7 +6,8 @@ create table account
     account  varchar(20) not null comment '用户名',
     password varchar(20) not null comment '密码',
     nickname varchar(20) not null comment '别名',
-    is_deleted integer unsigned default 0 comment '0未删除'
+    is_deleted integer unsigned default 0 comment '0未删除',
+    unique (account)
 ) comment '账号';
 
 drop table if exists user;
@@ -18,7 +19,8 @@ create table user
     birthday   datetime        not null comment '生日',
     id_card    varchar(20)     not null comment '身份证件',
     account_id bigint unsigned not null comment 'accountId',
-    is_deleted integer unsigned default 0 comment '0未删除'
+    is_deleted integer unsigned default 0 comment '0未删除',
+    unique (id_card)
 ) comment '用户';
 
 
@@ -30,7 +32,8 @@ create table role
         primary key,
     role_code  varchar(20) not null comment '角色编码',
     role_name  varchar(20) not null comment '角色名称',
-    is_deleted integer unsigned default 0 comment '0未删除'
+    is_deleted integer unsigned default 0 comment '0未删除',
+    unique (role_code)
 ) COMMENT '角色';
 
 insert into role(id,role_code,role_name)
@@ -46,5 +49,6 @@ create table account_role_rel
         primary key,
     account_id bigint unsigned not null comment 'accountId',
     role_id    bigint unsigned not null comment 'roleId',
-    is_deleted integer unsigned default 0 comment '0未删除'
+    is_deleted integer unsigned default 0 comment '0未删除',
+    unique (account_id, role_id)
 ) COMMENT '账号-角色';
