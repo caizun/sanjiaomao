@@ -3,6 +3,8 @@ package xyz.sanjiaomao.api.account;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.sanjiaomao.infrastructure.auth.Role;
+import xyz.sanjiaomao.infrastructure.constants.AccountConstant;
 
 /**
  * <pre>
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConsoleController {
 
 
+  @Role(AccountConstant.ROLE_NORMAL)
   @GetMapping
   public String ok(){
     return "ok";

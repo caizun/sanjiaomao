@@ -17,6 +17,10 @@ public class AccountConstant {
   /**
    * 常规用户
    */
-  public static final String ROLE_NORMAL = "NORMAL";
+  public static final String ROLE_NORMAL = "normal";
 
+  /**
+   * 用户id
+   */
+  public static final String ID = "id";
 }

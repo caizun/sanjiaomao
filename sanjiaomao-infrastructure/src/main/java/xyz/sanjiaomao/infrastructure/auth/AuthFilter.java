@@ -56,6 +56,7 @@ public class AuthFilter implements Filter {
       error403(httpServletResponse);
       return;
     }
+    request.setAttribute(AccountConstant.ID, accountDO.getId());
 
     chain.doFilter(request, response);
 

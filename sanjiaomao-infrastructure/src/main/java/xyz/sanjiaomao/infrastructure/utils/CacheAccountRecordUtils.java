@@ -21,9 +21,9 @@ public class CacheAccountRecordUtils {
     return CACHE_LOGIN.get(key);
   }
 
-  public static void put(String key, AccountDO aggregate) {
+  public static void put(String key, AccountDO accountDO) {
     synchronized (CACHE_LOGIN) {
-      CACHE_LOGIN.put(key, aggregate);
+      CACHE_LOGIN.put(key, accountDO);
     }
   }
 

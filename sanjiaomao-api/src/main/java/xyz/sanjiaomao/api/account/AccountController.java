@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import xyz.sanjiaomao.application.account.AccountOptService;
 import xyz.sanjiaomao.domain.account.cmd.CreateAccountCmd;
 import xyz.sanjiaomao.domain.account.cmd.LoginCmd;
+import xyz.sanjiaomao.infrastructure.utils.Result;
 
 import javax.annotation.Resource;
 
@@ -24,14 +25,16 @@ public class AccountController {
   private AccountOptService accountOptService;
 
   @PostMapping
-  public void registry(@Validated @RequestBody CreateAccountCmd cmd) {
+  public Result<String> registry(@Validated @RequestBody CreateAccountCmd cmd) {
     accountOptService.registry(cmd);
+    return Result.successful();
   }
 
 
   @GetMapping
-  public void login(@Validated LoginCmd cmd) {
+  public Result<String> login(@Validated LoginCmd cmd) {
     accountOptService.login(cmd);
+    return Result.successful();
   }
 
 

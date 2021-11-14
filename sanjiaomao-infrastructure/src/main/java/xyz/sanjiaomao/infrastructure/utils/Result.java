@@ -35,4 +35,8 @@ public class Result<R> {
     return new Result<>(200, r);
   }
 
+  public static Result<String> successful() {
+    return new Result<>(200, "");
+  }
+
 }
