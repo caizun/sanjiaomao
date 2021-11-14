@@ -18,14 +18,14 @@ public class CreateAccountCmd {
   /**
    * 账号名称
    */
-  @NotNull(message="账号名称不能为空")
-  @Size(min=6, max=20)
-  private String account;
+  @NotNull(message = "账号名称不能为空")
+  @Size(min = 6, max = 20)
+  private String accountName;
   /**
    * 密码
    */
-  @NotNull(message="密码不能为空")
-  @Size(min=6, max=20)
+  @NotNull(message = "密码不能为空")
+  @Size(min = 6, max = 20)
   private String password;
   /**
    * 重复密码

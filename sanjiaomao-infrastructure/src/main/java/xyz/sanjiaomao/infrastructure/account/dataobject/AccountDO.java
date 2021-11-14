@@ -3,7 +3,7 @@ package xyz.sanjiaomao.infrastructure.account.dataobject;
 public class AccountDO {
     private Long id;
 
-    private String account;
+    private String accountName;
 
     private String password;
 
@@ -19,12 +19,12 @@ public class AccountDO {
         this.id = id;
     }
 
-    public String getAccount() {
-        return account;
+    public String getAccountName() {
+        return accountName;
     }
 
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
+    public void setAccountName(String accountName) {
+        this.accountName = accountName == null ? null : accountName.trim();
     }
 
     public String getPassword() {

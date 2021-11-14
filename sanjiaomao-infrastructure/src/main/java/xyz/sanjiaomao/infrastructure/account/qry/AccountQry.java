@@ -13,5 +13,5 @@ import lombok.Data;
 @Data
 public class AccountQry {
 
-  private String account;
+  private String accountName;
 }

@@ -19,7 +19,7 @@ public class LoginCmd {
    */
   @NotNull(message = "账号名称不能为空")
   @Size(min = 6, max = 20, message = "密码长度不在6-20之间")
-  private String account;
+  private String accountName;
   /**
    * 密码
    */

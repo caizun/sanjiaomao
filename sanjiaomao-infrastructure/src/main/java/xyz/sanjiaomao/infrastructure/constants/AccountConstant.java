@@ -19,5 +19,4 @@ public class AccountConstant {
    */
   public static final String ROLE_NORMAL = "NORMAL";
 
-
 }

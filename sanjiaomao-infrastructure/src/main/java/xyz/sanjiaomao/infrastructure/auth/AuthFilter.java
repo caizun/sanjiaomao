@@ -59,7 +59,6 @@ public class AuthFilter implements Filter {
 
     chain.doFilter(request, response);
 
-
   }
 
   private void error403(HttpServletResponse httpServletResponse) throws IOException {

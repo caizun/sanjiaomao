@@ -1,6 +1,5 @@
 package xyz.sanjiaomao.account.test;
 
-import cn.hutool.json.JSONUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +16,6 @@ import org.springframework.web.context.WebApplicationContext;
 import xyz.sanjiaomao.Application;
 import xyz.sanjiaomao.api.account.AccountController;
 import xyz.sanjiaomao.domain.account.cmd.CreateAccountCmd;
-import xyz.sanjiaomao.domain.account.cmd.LoginCmd;
 import xyz.sanjiaomao.infrastructure.account.dataobject.AccountDO;
 import xyz.sanjiaomao.infrastructure.account.qry.AccountQry;
 import xyz.sanjiaomao.infrastructure.auth.AuthFilter;
@@ -26,7 +24,6 @@ import xyz.sanjiaomao.infrastructure.utils.CacheAccountRecordUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,14 +61,14 @@ public class AccountControllerTest {
   @Test
   public void registry(){
     CreateAccountCmd cmd = new CreateAccountCmd();
-    cmd.setAccount("administrator");
+    cmd.setAccountName("administrator");
     cmd.setPassword("administrator");
     cmd.setRePassword("administrator");
     cmd.setNickname("administrator");
     accountController.registry(cmd);
 
     AccountQry qry = new AccountQry();
-    qry.setAccount(cmd.getAccount());
+    qry.setAccountName(cmd.getAccountName());
     List<AccountDO> listAccountDO = accountMapper.select(qry);
     assert !CollectionUtils.isEmpty(listAccountDO);
     AccountDO accountDO = listAccountDO.get(0);
@@ -81,14 +78,11 @@ public class AccountControllerTest {
 
   @Test
   public void login() throws Exception {
-    LoginCmd cmd = new LoginCmd();
-    cmd.setAccount("administrator");
-    cmd.setPassword("administrator");
-    accountController.login(cmd);
 
-    MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post("/public/account/record")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(JSONUtil.toJsonStr(cmd).getBytes(StandardCharsets.UTF_8))
+    MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/public/account")
+        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        .param("accountName", "administrator")
+        .param("password", "administrator")
     ).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.cookie().exists("account"))
         .andReturn().getResponse();
 

@@ -25,7 +25,7 @@ public class AccountQryService {
 
   public AccountDO selectByAccount(String account) {
     AccountQry qry = new AccountQry();
-    qry.setAccount(account);
+    qry.setAccountName(account);
     List<AccountDO> listAccount = select(qry);
     return CollectionUtils.isEmpty(listAccount) ? new AccountDO() : listAccount.get(0);
 

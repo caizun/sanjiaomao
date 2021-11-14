@@ -41,13 +41,13 @@ public class AccountRepositoryImpl implements AccountRepository {
 
   @Override
   public AccountAggregate create(CreateAccountCmd cmd) {
-    return build(IdUtils.AccountId.nextId(), cmd.getAccount(), cmd.getPassword(), cmd.getNickname());
+    return build(IdUtils.AccountId.nextId(), cmd.getAccountName(), cmd.getPassword(), cmd.getNickname());
   }
 
   @Override
   public AccountAggregate findById(Long id) {
     AccountDO accountDO = accountMapper.selectByPrimaryKey(id);
-    return build(accountDO.getId(), accountDO.getAccount(), accountDO.getPassword(), accountDO.getNickname());
+    return build(accountDO.getId(), accountDO.getAccountName(), accountDO.getPassword(), accountDO.getNickname());
   }
 
   @Override
@@ -55,7 +55,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     Account account = aggregate.getAccount();
     AccountDO accountDO = new AccountDO();
     accountDO.setId(aggregate.getId());
-    accountDO.setAccount(account.getAccount());
+    accountDO.setAccountName(account.getAccountName());
     accountDO.setPassword(account.getPassword());
     accountDO.setNickname(account.getNickname());
     accountMapper.insert(accountDO);

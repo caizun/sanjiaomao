@@ -50,7 +50,7 @@ public class AccountOptService {
   @Transactional(rollbackFor = Exception.class)
   public void registry(CreateAccountCmd cmd) {
     //阅读模型
-    AccountDO accountDO = accountQryService.selectByAccount(cmd.getAccount());
+    AccountDO accountDO = accountQryService.selectByAccount(cmd.getAccountName());
     RoleDO roleDO = roleQryService.selectByRoleCode(AccountConstant.ROLE_NORMAL);
     //断言
     Assert.isNull(accountDO.getId(), Message.EXIST_ACCOUNT);
@@ -65,7 +65,7 @@ public class AccountOptService {
 
 
   public void login(LoginCmd cmd) {
-    AccountDO accountDO = accountQryService.selectByAccount(cmd.getAccount());
+    AccountDO accountDO = accountQryService.selectByAccount(cmd.getAccountName());
     //断言
     Assert.notNull(accountDO.getId(), Message.NOT_EXIST_ACCOUNT);
     Assert.isTrue(Objects.equals(accountDO.getPassword(), cmd.getPassword()), Message.ERROR_PASSWORD);

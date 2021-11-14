@@ -15,7 +15,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Account {
 
-  private final String account;
+  private final String accountName;
 
   private final String password;
 

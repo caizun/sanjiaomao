@@ -2,12 +2,12 @@ use sanjiaomao;
 drop table if exists account;
 create table account
 (
-    id       bigint unsigned primary key comment 'id',
-    account  varchar(20) not null comment '用户名',
-    password varchar(20) not null comment '密码',
-    nickname varchar(20) not null comment '别名',
-    is_deleted integer unsigned default 0 comment '0未删除',
-    unique (account)
+    id           bigint unsigned primary key comment 'id',
+    account_name varchar(20) not null comment '用户名',
+    password     varchar(20) not null comment '密码',
+    nickname     varchar(20) not null comment '别名',
+    is_deleted   integer unsigned default 0 comment '0未删除',
+    unique (account_name)
 ) comment '账号';
 
 drop table if exists user;
