@@ -25,6 +25,10 @@ public class CommentEntity {
   /**
    * 内容
    */
-  private Long content;
+  private String content;
+  /**
+   * 评论用户
+   */
+  private Long accountId;
 
 }
