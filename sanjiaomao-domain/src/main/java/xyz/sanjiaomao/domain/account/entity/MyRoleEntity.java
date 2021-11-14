@@ -9,5 +9,5 @@ package xyz.sanjiaomao.domain.account.entity;
  * create by 2021-10-16 14:36
  */
 public interface MyRoleEntity {
-  void addRole(Long accountId, Long roleId);
+  void create(Long accountId, Long roleId);
 }

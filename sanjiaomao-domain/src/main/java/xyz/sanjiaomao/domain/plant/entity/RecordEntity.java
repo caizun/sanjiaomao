@@ -19,9 +19,9 @@ public class RecordEntity {
    */
   private Long id;
   /**
-   * 日期
+   * 打开日期
    */
-  private Date date;
+  private Date recordDate;
   /**
    * 备注
    */

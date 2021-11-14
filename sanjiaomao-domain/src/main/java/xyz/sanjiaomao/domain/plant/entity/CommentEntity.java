@@ -2,6 +2,8 @@ package xyz.sanjiaomao.domain.plant.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * <pre>
  *  评论实体
@@ -12,4 +14,17 @@ import lombok.Data;
  */
 @Data
 public class CommentEntity {
+  /**
+   * 主键
+   */
+  private Long id;
+  /**
+   * 日期
+   */
+  private Date contentDate;
+  /**
+   * 内容
+   */
+  private Long content;
+
 }

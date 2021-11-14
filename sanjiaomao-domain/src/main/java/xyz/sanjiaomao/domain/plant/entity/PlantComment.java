@@ -1,5 +1,8 @@
 package xyz.sanjiaomao.domain.plant.entity;
 
+import xyz.sanjiaomao.domain.plant.PlantAggregate;
+import xyz.sanjiaomao.domain.plant.cmd.CreateCommentCmd;
+
 /**
  * <pre>
  *  计划评论
@@ -10,4 +13,5 @@ package xyz.sanjiaomao.domain.plant.entity;
  */
 
 public interface PlantComment {
+  void create(PlantAggregate plantAggregate, CreateCommentCmd cmd);
 }

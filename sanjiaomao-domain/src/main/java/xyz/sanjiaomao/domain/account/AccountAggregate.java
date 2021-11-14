@@ -42,7 +42,7 @@ public class AccountAggregate {
    * @param roleId 角色id
    */
   public void addRole(Long roleId) {
-    myRoleEntity.addRole(this.id, roleId);
+    myRoleEntity.create(this.id, roleId);
   }
 
 }

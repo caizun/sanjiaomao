@@ -1,8 +1,12 @@
 package xyz.sanjiaomao.domain.plant;
 
 import lombok.Data;
+import xyz.sanjiaomao.domain.plant.cmd.CreateCommentCmd;
+import xyz.sanjiaomao.domain.plant.cmd.CreateRecordCmd;
 import xyz.sanjiaomao.domain.plant.entity.PlantComment;
 import xyz.sanjiaomao.domain.plant.entity.PlantRecord;
+
+import java.util.Date;
 
 /**
  * <pre>
@@ -19,9 +23,21 @@ public class PlantAggregate {
    */
   private Long id;
   /**
+   *
+   */
+  private Date plantDate;
+  /**
    * 计划内容
    */
   private String plantContent;
+  /**
+   * 浏览
+   */
+  private Long browse;
+  /**
+   * 点赞
+   */
+  private Long fabulous;
   /**
    * 打卡记录
    */
@@ -34,6 +50,28 @@ public class PlantAggregate {
    * 账号id
    */
   private Long accountId;
+
+
+  public void addRecord(CreateRecordCmd cmd) {
+    plantRecord.create(this, cmd);
+  }
+
+
+  public void addComment(CreateCommentCmd cmd) {
+    plantComment.create(this, cmd);
+  }
+
+  public void deletedComment(Long commentId) {
+    plantRecord.delete(commentId);
+  }
+
+  public void browse() {
+    browse++;
+  }
+
+  public void fabulous() {
+    fabulous++;
+  }
 
 
 }

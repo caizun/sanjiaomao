@@ -27,7 +27,7 @@ public class MyRoleEntityImpl implements MyRoleEntity {
   }
 
   @Override
-  public void addRole(Long accountId, Long roleId) {
+  public void create(Long accountId, Long roleId) {
     AccountRoleRelDO accountRoleRelDO = new AccountRoleRelDO();
     accountRoleRelDO.setId(IdUtils.AccountRoleId.nextId());
     accountRoleRelDO.setAccountId(accountId);
