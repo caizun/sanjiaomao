@@ -16,9 +16,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.context.WebApplicationContext;
 import xyz.sanjiaomao.Application;
 import xyz.sanjiaomao.api.account.AccountController;
-import xyz.sanjiaomao.domain.account.AccountAggregate;
-import xyz.sanjiaomao.domain.account.cmd.AddRecordCmd;
 import xyz.sanjiaomao.domain.account.cmd.CreateAccountCmd;
+import xyz.sanjiaomao.domain.account.cmd.LoginCmd;
 import xyz.sanjiaomao.infrastructure.account.dataobject.AccountDO;
 import xyz.sanjiaomao.infrastructure.account.qry.AccountQry;
 import xyz.sanjiaomao.infrastructure.auth.AuthFilter;
@@ -82,7 +81,7 @@ public class AccountControllerTest {
 
   @Test
   public void login() throws Exception {
-    AddRecordCmd cmd = new AddRecordCmd();
+    LoginCmd cmd = new LoginCmd();
     cmd.setAccount("administrator");
     cmd.setPassword("administrator");
     accountController.login(cmd);
@@ -96,8 +95,8 @@ public class AccountControllerTest {
     Cookie cookie = response.getCookie("account");
     assert cookie != null;
     String id = cookie.getValue();
-    AccountAggregate aggregate = CacheAccountRecordUtils.get(id);
-    assert Objects.nonNull(aggregate);
+    AccountDO accountDO = CacheAccountRecordUtils.get(id);
+    assert accountDO != null;
   }
 
 

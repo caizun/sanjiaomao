@@ -18,4 +18,6 @@ public class Message {
 
   public static final String ERROR_PASSWORD = "密码错误";
 
+  public static final String NO_AUTHENTICATION = "无访问权限";
+
 }

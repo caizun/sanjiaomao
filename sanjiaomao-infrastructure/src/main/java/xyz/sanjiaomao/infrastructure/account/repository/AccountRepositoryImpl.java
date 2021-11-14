@@ -7,7 +7,6 @@ import xyz.sanjiaomao.domain.account.repository.AccountRepository;
 import xyz.sanjiaomao.domain.account.valueobject.Account;
 import xyz.sanjiaomao.infrastructure.account.dataobject.AccountDO;
 import xyz.sanjiaomao.infrastructure.account.entity.AccountOwnerEntityImpl;
-import xyz.sanjiaomao.infrastructure.account.entity.MyRecordEntityImpl;
 import xyz.sanjiaomao.infrastructure.account.entity.MyRoleEntityImpl;
 import xyz.sanjiaomao.infrastructure.mapper.AccountMapper;
 import xyz.sanjiaomao.infrastructure.mapper.AccountRoleRelMapper;
@@ -70,7 +69,6 @@ public class AccountRepositoryImpl implements AccountRepository {
     aggregate.setAccount(new Account(account, password, nickname));
     aggregate.setAccountOwnerEntity(new AccountOwnerEntityImpl(userMapper));
     aggregate.setMyRoleEntity(new MyRoleEntityImpl(roleMapper, accountRoleRelMapper));
-    aggregate.setMyRecordEntity(new MyRecordEntityImpl());
     return aggregate;
   }
 

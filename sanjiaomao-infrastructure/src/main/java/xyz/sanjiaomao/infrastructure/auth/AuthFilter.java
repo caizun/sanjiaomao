@@ -1,9 +1,11 @@
 package xyz.sanjiaomao.infrastructure.auth;
 
-import cn.hutool.core.util.IdUtil;
-import xyz.sanjiaomao.domain.account.AccountAggregate;
+import cn.hutool.json.JSONUtil;
+import xyz.sanjiaomao.infrastructure.account.dataobject.AccountDO;
 import xyz.sanjiaomao.infrastructure.constants.AccountConstant;
+import xyz.sanjiaomao.infrastructure.message.Message;
 import xyz.sanjiaomao.infrastructure.utils.CacheAccountRecordUtils;
+import xyz.sanjiaomao.infrastructure.utils.Result;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -36,7 +38,6 @@ public class AuthFilter implements Filter {
       chain.doFilter(request, response);
       return;
     }
-    String id = IdUtil.simpleUUID();
     Cookie[] cookies = httpServletRequest.getCookies();
     if(Objects.isNull(cookies)){
       error403(httpServletResponse);
@@ -45,39 +46,27 @@ public class AuthFilter implements Filter {
 
     Optional<String> optional = Stream.of(cookies).filter(cookie -> Objects.equals(cookie.getName(), AccountConstant.COOKIE_ACCOUNT)).map(Cookie::getValue)
         .findFirst();
-    if(!optional.isPresent()){
+    if (!optional.isPresent()) {
       error403(httpServletResponse);
       return;
     }
 
-    String cookie = optional.get();
-    AccountAggregate aggregate = CacheAccountRecordUtils.get(cookie);
-
-    if(Objects.nonNull(aggregate)){
-      httpServletRequest.setAttribute(AccountConstant.COOKIE_ACCOUNT, cookie);
-      chain.doFilter(request, response);
-      return;
-    }
-
-
-    aggregate = CacheAccountRecordUtils.getRefresh(cookie);
-
-
-    if(Objects.isNull(aggregate)){
+    AccountDO accountDO = CacheAccountRecordUtils.get(optional.get());
+    if (Objects.isNull(accountDO)) {
       error403(httpServletResponse);
       return;
     }
 
-    CacheAccountRecordUtils.put(id, aggregate);
-    CacheAccountRecordUtils.remove(cookie);
-    CacheAccountRecordUtils.putRefresh(id, aggregate);
-    httpServletResponse.addCookie(new Cookie(AccountConstant.COOKIE_ACCOUNT, id));
-    httpServletRequest.setAttribute(AccountConstant.COOKIE_ACCOUNT, id);
     chain.doFilter(request, response);
+
+
   }
 
   private void error403(HttpServletResponse httpServletResponse) throws IOException {
     PrintWriter writer = httpServletResponse.getWriter();
-    writer.write("{\"error\":403}");
+    int code = 403;
+    httpServletResponse.setStatus(code);
+    Result<String> result = Result.error(code, Message.NO_AUTHENTICATION);
+    writer.write(JSONUtil.toJsonStr(result));
   }
 }

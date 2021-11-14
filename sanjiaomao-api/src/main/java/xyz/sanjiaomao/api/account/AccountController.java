@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.sanjiaomao.application.account.AccountOptService;
-import xyz.sanjiaomao.domain.account.cmd.AddRecordCmd;
 import xyz.sanjiaomao.domain.account.cmd.CreateAccountCmd;
+import xyz.sanjiaomao.domain.account.cmd.LoginCmd;
 
 import javax.annotation.Resource;
 
@@ -27,13 +27,13 @@ public class AccountController {
   private AccountOptService accountOptService;
 
   @PostMapping
-  public void registry(@Validated @RequestBody CreateAccountCmd cmd){
+  public void registry(@Validated @RequestBody CreateAccountCmd cmd) {
     accountOptService.registry(cmd);
   }
 
 
-  @PostMapping("/record")
-  public void login(@Validated @RequestBody AddRecordCmd cmd){
+  @PostMapping("/login")
+  public void login(@Validated @RequestBody LoginCmd cmd) {
     accountOptService.login(cmd);
   }
 
