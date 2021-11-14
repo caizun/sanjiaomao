@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
  * create by 2021-10-16 17:29
  */
 @Data
-public class LoginCmd {
+public class AccountCmd {
   /**
    * 账号名称
    */

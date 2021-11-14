@@ -3,8 +3,8 @@ package xyz.sanjiaomao.api.account;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import xyz.sanjiaomao.application.account.AccountOptService;
+import xyz.sanjiaomao.domain.account.cmd.AccountCmd;
 import xyz.sanjiaomao.domain.account.cmd.CreateAccountCmd;
-import xyz.sanjiaomao.domain.account.cmd.LoginCmd;
 import xyz.sanjiaomao.infrastructure.utils.Result;
 
 import javax.annotation.Resource;
@@ -32,7 +32,7 @@ public class AccountController {
 
 
   @GetMapping
-  public Result<String> login(@Validated LoginCmd cmd) {
+  public Result<String> login(@Validated AccountCmd cmd) {
     accountOptService.login(cmd);
     return Result.successful();
   }

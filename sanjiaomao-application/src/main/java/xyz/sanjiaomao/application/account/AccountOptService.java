@@ -5,8 +5,8 @@ import cn.hutool.core.util.IdUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.sanjiaomao.domain.account.AccountAggregate;
+import xyz.sanjiaomao.domain.account.cmd.AccountCmd;
 import xyz.sanjiaomao.domain.account.cmd.CreateAccountCmd;
-import xyz.sanjiaomao.domain.account.cmd.LoginCmd;
 import xyz.sanjiaomao.domain.account.repository.AccountRepository;
 import xyz.sanjiaomao.infrastructure.account.dataobject.AccountDO;
 import xyz.sanjiaomao.infrastructure.account.dataobject.RoleDO;
@@ -64,7 +64,7 @@ public class AccountOptService {
   }
 
 
-  public void login(LoginCmd cmd) {
+  public void login(AccountCmd cmd) {
     AccountDO accountDO = accountQryService.selectByAccount(cmd.getAccountName());
     //断言
     Assert.notNull(accountDO.getId(), Message.NOT_EXIST_ACCOUNT);
