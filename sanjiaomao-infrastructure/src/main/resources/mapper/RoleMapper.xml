@@ -12,16 +12,13 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.account.dataobject.RoleDO" >
-    insert into role (id, role_code, role_name, 
-      is_deleted)
-    values (#{id,jdbcType=BIGINT}, #{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, 
-      #{isDeleted,jdbcType=INTEGER})
+    insert into role (id, role_code, role_name)
+    values (#{id,jdbcType=BIGINT}, #{roleCode,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="xyz.sanjiaomao.infrastructure.account.dataobject.RoleDO" >
     update role
     set role_code = #{roleCode,jdbcType=VARCHAR},
-      role_name = #{roleName,jdbcType=VARCHAR},
-      is_deleted = #{isDeleted,jdbcType=INTEGER}
+        role_name = #{roleName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >

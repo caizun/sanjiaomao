@@ -1,6 +1,7 @@
 package xyz.sanjiaomao.api.account;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.sanjiaomao.application.plant.PlantOptService;
@@ -29,7 +30,7 @@ public class PlantController {
   private PlantOptService plantOptService;
 
   @PostMapping
-  public Result<Boolean> plant(CreatePlantCmd cmd) {
+  public Result<Boolean> plant(@RequestBody CreatePlantCmd cmd) {
     Long accountId = ((Long) httpServletRequest.getAttribute(AccountConstant.ID));
     plantOptService.createPlant(accountId, cmd);
     return Result.successful(Boolean.TRUE);

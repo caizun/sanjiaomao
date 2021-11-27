@@ -22,8 +22,7 @@
       update account
       set account_name = #{accountName,jdbcType=VARCHAR},
           password     = #{password,jdbcType=VARCHAR},
-          nickname     = #{nickname,jdbcType=VARCHAR},
-          is_deleted   = #{isDeleted,jdbcType=INTEGER}
+          nickname     = #{nickname,jdbcType=VARCHAR}
       where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >

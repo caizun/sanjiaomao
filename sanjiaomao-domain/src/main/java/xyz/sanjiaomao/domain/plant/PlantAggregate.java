@@ -84,7 +84,7 @@ public class PlantAggregate {
 
   public void create(Long accountId, CreatePlantCmd cmd) {
     this.accountId = accountId;
-    this.plantName = cmd.getName();
+    this.plantName = cmd.getPlantName();
     this.plantDate = cmd.getPlantDate();
     this.plantContent = cmd.getPlantContent();
   }

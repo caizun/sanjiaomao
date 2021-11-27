@@ -13,7 +13,7 @@ import xyz.sanjiaomao.domain.plant.PlantAggregate;
 public interface PlantRepository {
 
 
-  void save(PlantAggregate plantAggregate);
+  void save(PlantAggregate aggregate);
 
   PlantAggregate findById(Long id);
 }

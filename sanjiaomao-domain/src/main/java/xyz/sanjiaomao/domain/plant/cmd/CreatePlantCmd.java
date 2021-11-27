@@ -17,7 +17,7 @@ public class CreatePlantCmd {
   /**
    * 计划名称
    */
-  private String name;
+  private String plantName;
   /**
    * 开始时间
    */
