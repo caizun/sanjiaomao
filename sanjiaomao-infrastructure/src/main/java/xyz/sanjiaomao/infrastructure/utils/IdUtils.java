@@ -37,9 +37,17 @@ public class IdUtils {
 
   public static class AccountRoleId {
     private static final Snowflake snowflake = IdUtil.getSnowflake(1, 4);
-    public static long nextId(){
+
+    public static long nextId() {
       return snowflake.nextId();
     }
   }
 
+  public static class PlantId {
+    private static Snowflake snowflake = IdUtil.getSnowflake(1, 5);
+
+    public static long nextId() {
+      return snowflake.nextId();
+    }
+  }
 }

@@ -2,6 +2,7 @@ package xyz.sanjiaomao.domain.plant;
 
 import lombok.Data;
 import xyz.sanjiaomao.domain.plant.cmd.CreateCommentCmd;
+import xyz.sanjiaomao.domain.plant.cmd.CreatePlantCmd;
 import xyz.sanjiaomao.domain.plant.cmd.CreateRecordCmd;
 import xyz.sanjiaomao.domain.plant.entity.PlantComment;
 import xyz.sanjiaomao.domain.plant.entity.PlantRecord;
@@ -23,7 +24,11 @@ public class PlantAggregate {
    */
   private Long id;
   /**
-   *
+   * 计划名称
+   */
+  private String plantName;
+  /**
+   * 计划时间
    */
   private Date plantDate;
   /**
@@ -51,6 +56,9 @@ public class PlantAggregate {
    */
   private Long accountId;
 
+  public PlantAggregate(Long id) {
+    this.id = id;
+  }
 
   public void addRecord(CreateRecordCmd cmd) {
     plantRecord.create(this, cmd);
@@ -74,4 +82,10 @@ public class PlantAggregate {
   }
 
 
+  public void create(Long accountId, CreatePlantCmd cmd) {
+    this.accountId = accountId;
+    this.plantName = cmd.getName();
+    this.plantDate = cmd.getPlantDate();
+    this.plantContent = cmd.getPlantContent();
+  }
 }
