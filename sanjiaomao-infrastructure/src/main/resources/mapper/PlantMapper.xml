@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="xyz.sanjiaomao.infrastructure.mapper.PlantMapper">
-    <resultMap id="BaseResultMap" type="xyz.sanjiaomao.infrastructure.plant.dataobject.PlantDO">
-        <result column="id" property="id" jdbcType="BIGINT"/>
+    <resultMap id="BaseResultMap" type="xyz.sanjiaomao.infrastructure.plant.dataobject.Plant">
+        <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="plant_name" property="plantName" jdbcType="VARCHAR"/>
         <result column="plant_date" property="plantDate" jdbcType="TIMESTAMP"/>
         <result column="plant_key" property="plantKey" jdbcType="VARCHAR"/>
         <result column="account_id" property="accountId" jdbcType="BIGINT"/>
-        <result column="plant_content" property="plantContent" jdbcType="LONGVARCHAR"/>
         <result column="is_deleted" property="isDeleted" jdbcType="INTEGER"/>
+        <result column="plant_content" property="plantContent" jdbcType="LONGVARCHAR"/>
     </resultMap>
-    <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.PlantDO">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from plant
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.Plant">
         insert into plant (id, plant_name, plant_date,
-                           plant_key, account_id, plant_content)
+                           plant_key, account_id, is_deleted,
+                           plant_content)
         values (#{id,jdbcType=BIGINT}, #{plantName,jdbcType=VARCHAR}, #{plantDate,jdbcType=TIMESTAMP},
-                #{plantKey,jdbcType=VARCHAR}, #{accountId,jdbcType=BIGINT}, #{plantContent,jdbcType=LONGVARCHAR})
+                #{plantKey,jdbcType=VARCHAR}, #{accountId,jdbcType=BIGINT}, #{isDeleted,jdbcType=INTEGER},
+                #{plantContent,jdbcType=LONGVARCHAR})
     </insert>
+    <update id="updateByPrimaryKey" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.Plant">
+        update plant
+        set plant_name    = #{plantName,jdbcType=VARCHAR},
+            plant_date    = #{plantDate,jdbcType=TIMESTAMP},
+            plant_key     = #{plantKey,jdbcType=VARCHAR},
+            account_id    = #{accountId,jdbcType=BIGINT},
+            is_deleted    = #{isDeleted,jdbcType=INTEGER},
+            plant_content = #{plantContent,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select id, plant_name, plant_date, plant_key, account_id, is_deleted, plant_content
+        from plant
+        where id = #{id,jdbcType=BIGINT}
+    </select>
     <select id="selectAll" resultMap="BaseResultMap">
-        select id, plant_name, plant_date, plant_key, account_id, plant_content, is_deleted
+        select id, plant_name, plant_date, plant_key, account_id, is_deleted, plant_content
         from plant
     </select>
 </mapper>

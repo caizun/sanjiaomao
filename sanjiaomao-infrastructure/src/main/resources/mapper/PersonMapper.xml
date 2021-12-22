@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xyz.sanjiaomao.infrastructure.mapper.PersonMapper">
+    <resultMap id="BaseResultMap" type="xyz.sanjiaomao.infrastructure.plant.dataobject.Person">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="INTEGER"/>
+        <result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
+        <result column="id_card" property="idCard" jdbcType="VARCHAR"/>
+        <result column="account_id" property="accountId" jdbcType="BIGINT"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="INTEGER"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from person
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.Person">
+        insert into person (id, name, gender,
+                            birthday, id_card, account_id,
+                            is_deleted)
+        values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
+                #{birthday,jdbcType=TIMESTAMP}, #{idCard,jdbcType=VARCHAR}, #{accountId,jdbcType=BIGINT},
+                #{isDeleted,jdbcType=INTEGER})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.Person">
+        update person
+        set name       = #{name,jdbcType=VARCHAR},
+            gender     = #{gender,jdbcType=INTEGER},
+            birthday   = #{birthday,jdbcType=TIMESTAMP},
+            id_card    = #{idCard,jdbcType=VARCHAR},
+            account_id = #{accountId,jdbcType=BIGINT},
+            is_deleted = #{isDeleted,jdbcType=INTEGER}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select id, name, gender, birthday, id_card, account_id, is_deleted
+        from person
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, name, gender, birthday, id_card, account_id, is_deleted
+        from person
+    </select>
+</mapper>

@@ -10,8 +10,8 @@ create table account
     unique (account_name)
 ) charset = utf8mb4,comment '账号';
 
-drop table if exists user;
-create table user
+drop table if exists person;
+create table person
 (
     id         bigint unsigned primary key comment 'id',
     name       varchar(20)     not null comment '姓名',

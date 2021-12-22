@@ -46,6 +46,8 @@
         <!--        <table tableName="account_role_rel" domainObjectName="AccountRoleRel"/>-->
         <!--        <table tableName="role" domainObjectName="Role"/>-->
         <!--        <table tableName="user" domainObjectName="User"/>-->
+        <table tableName="account" domainObjectName="Account"/>
+        <table tableName="person" domainObjectName="Person"/>
         <table tableName="plant" domainObjectName="Plant"/>
     </context>
 </generatorConfiguration>
