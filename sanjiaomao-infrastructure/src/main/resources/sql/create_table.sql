@@ -5,7 +5,7 @@ create table account
     id           bigint unsigned primary key comment 'id',
     account_name varchar(20) not null comment '用户名',
     password     varchar(20) not null comment '密码',
-    nickname     varchar(20) not null comment '别名',
+    nickname     varchar(20) not null comment '昵称',
     is_deleted   integer unsigned default 0 comment '0未删除',
     unique (account_name)
 ) charset = utf8mb4,comment '账号';

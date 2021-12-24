@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="xyz.sanjiaomao.infrastructure.mapper.PlantMapper">
-    <resultMap id="BaseResultMap" type="xyz.sanjiaomao.infrastructure.plant.dataobject.Plant">
+    <resultMap id="BaseResultMap" type="xyz.sanjiaomao.infrastructure.plant.dataobject.PlantDO">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="plant_name" property="plantName" jdbcType="VARCHAR"/>
         <result column="plant_date" property="plantDate" jdbcType="TIMESTAMP"/>
@@ -15,7 +15,7 @@
         from plant
         where id = #{id,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.Plant">
+    <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.PlantDO">
         insert into plant (id, plant_name, plant_date,
                            plant_key, account_id, is_deleted,
                            plant_content)
@@ -23,7 +23,7 @@
                 #{plantKey,jdbcType=VARCHAR}, #{accountId,jdbcType=BIGINT}, #{isDeleted,jdbcType=INTEGER},
                 #{plantContent,jdbcType=LONGVARCHAR})
     </insert>
-    <update id="updateByPrimaryKey" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.Plant">
+    <update id="updateByPrimaryKey" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.PlantDO">
         update plant
         set plant_name    = #{plantName,jdbcType=VARCHAR},
             plant_date    = #{plantDate,jdbcType=TIMESTAMP},

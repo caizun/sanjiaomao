@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="xyz.sanjiaomao.infrastructure.mapper.PersonMapper">
-    <resultMap id="BaseResultMap" type="xyz.sanjiaomao.infrastructure.plant.dataobject.Person">
+    <resultMap id="BaseResultMap" type="xyz.sanjiaomao.infrastructure.plant.dataobject.PersonDO">
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="gender" property="gender" jdbcType="INTEGER"/>
@@ -15,7 +15,7 @@
         from person
         where id = #{id,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.Person">
+    <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.PersonDO">
         insert into person (id, name, gender,
                             birthday, id_card, account_id,
                             is_deleted)
@@ -23,7 +23,7 @@
                 #{birthday,jdbcType=TIMESTAMP}, #{idCard,jdbcType=VARCHAR}, #{accountId,jdbcType=BIGINT},
                 #{isDeleted,jdbcType=INTEGER})
     </insert>
-    <update id="updateByPrimaryKey" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.Person">
+    <update id="updateByPrimaryKey" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.PersonDO">
         update person
         set name       = #{name,jdbcType=VARCHAR},
             gender     = #{gender,jdbcType=INTEGER},

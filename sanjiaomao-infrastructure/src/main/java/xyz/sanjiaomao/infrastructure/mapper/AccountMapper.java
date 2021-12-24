@@ -1,17 +1,20 @@
 package xyz.sanjiaomao.infrastructure.mapper;
 
-import xyz.sanjiaomao.infrastructure.plant.dataobject.Account;
+import xyz.sanjiaomao.infrastructure.account.qry.AccountQry;
+import xyz.sanjiaomao.infrastructure.plant.dataobject.AccountDO;
 
 import java.util.List;
 
 public interface AccountMapper {
   int deleteByPrimaryKey(Long id);
 
-  int insert(Account record);
+  int insert(AccountDO record);
 
-  Account selectByPrimaryKey(Long id);
+  AccountDO selectByPrimaryKey(Long id);
 
-  List<Account> selectAll();
+  List<AccountDO> selectAll();
 
-  int updateByPrimaryKey(Account record);
+  int updateByPrimaryKey(AccountDO record);
+
+  AccountDO selectByAccountName(AccountQry qry);
 }

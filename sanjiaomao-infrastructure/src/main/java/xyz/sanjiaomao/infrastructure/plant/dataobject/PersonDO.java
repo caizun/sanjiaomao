@@ -2,7 +2,7 @@ package xyz.sanjiaomao.infrastructure.plant.dataobject;
 
 import java.util.Date;
 
-public class Person {
+public class PersonDO {
   private Long id;
 
   private String name;

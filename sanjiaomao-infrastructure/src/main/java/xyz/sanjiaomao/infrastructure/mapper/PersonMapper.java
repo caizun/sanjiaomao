@@ -1,17 +1,17 @@
 package xyz.sanjiaomao.infrastructure.mapper;
 
-import xyz.sanjiaomao.infrastructure.plant.dataobject.Person;
+import xyz.sanjiaomao.infrastructure.plant.dataobject.PersonDO;
 
 import java.util.List;
 
 public interface PersonMapper {
   int deleteByPrimaryKey(Long id);
 
-  int insert(Person record);
+  int insert(PersonDO record);
 
-  Person selectByPrimaryKey(Long id);
+  PersonDO selectByPrimaryKey(Long id);
 
-  List<Person> selectAll();
+  List<PersonDO> selectAll();
 
-  int updateByPrimaryKey(Person record);
+  int updateByPrimaryKey(PersonDO record);
 }

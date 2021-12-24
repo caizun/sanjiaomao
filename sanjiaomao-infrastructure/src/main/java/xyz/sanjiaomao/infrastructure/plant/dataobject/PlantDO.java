@@ -2,7 +2,7 @@ package xyz.sanjiaomao.infrastructure.plant.dataobject;
 
 import java.util.Date;
 
-public class Plant {
+public class PlantDO {
   private Long id;
 
   private String plantName;

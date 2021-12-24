@@ -1,6 +1,6 @@
 package xyz.sanjiaomao.infrastructure.plant.dataobject;
 
-public class Account {
+public class AccountDO {
   private Long id;
 
   private String accountName;

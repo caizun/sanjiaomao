@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="xyz.sanjiaomao.infrastructure.mapper.AccountMapper" >
-  <resultMap id="BaseResultMap" type="xyz.sanjiaomao.infrastructure.plant.dataobject.Account">
+  <resultMap id="BaseResultMap" type="xyz.sanjiaomao.infrastructure.plant.dataobject.AccountDO">
       <id column="id" property="id" jdbcType="BIGINT"/>
       <result column="account_name" property="accountName" jdbcType="VARCHAR"/>
       <result column="password" property="password" jdbcType="VARCHAR"/>
@@ -13,13 +13,13 @@
         from account
         where id = #{id,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.Account">
+    <insert id="insert" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.AccountDO">
         insert into account (id, account_name, password,
                              nickname, is_deleted)
         values (#{id,jdbcType=BIGINT}, #{accountName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
                 #{nickname,jdbcType=VARCHAR}, #{isDeleted,jdbcType=INTEGER})
     </insert>
-    <update id="updateByPrimaryKey" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.Account">
+    <update id="updateByPrimaryKey" parameterType="xyz.sanjiaomao.infrastructure.plant.dataobject.AccountDO">
         update account
         set account_name = #{accountName,jdbcType=VARCHAR},
             password     = #{password,jdbcType=VARCHAR},
@@ -35,5 +35,9 @@
     <select id="selectAll" resultMap="BaseResultMap">
         select id, account_name, password, nickname, is_deleted
         from account
+    </select>
+    <select id="selectByAccountName" parameterType="xyz.sanjiaomao.infrastructure.account.qry.AccountQry" resultMap="BaseResultMap">
+        select id, account_name, password, nickname, is_deleted
+        from account where account_name = #{accountName, jdbcType=VARCHAR}
     </select>
 </mapper>
